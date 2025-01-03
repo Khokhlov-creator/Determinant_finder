@@ -11,6 +11,7 @@ This project implements the calculation of the determinant of an \(N \times N\) 
 - [Performance Test Results](#performance-test-results)
 - [Performance Test Table](#performance-test-table)
 - [Testing](#testing)
+- [Evaluation Checklist](#evaluation-checklist)
 - [How It Works](#how-it-works)
 - [Notes](#notes)
 - [Future Enhancements](#future-enhancements)
@@ -27,6 +28,11 @@ This program computes the determinant of a matrix using both single-threaded and
 
 ## Project Structure
 ```
+├── data/                # Matrixes that were tested
+│   ├── ...
+│   ├── ...
+│   .....
+│   └── ...
 ├── src/
 │   ├── main.cpp         # Main application
 │   ├── matrix.cpp       # Implementation of matrix operations
@@ -77,8 +83,8 @@ After building, you will have the following executable:
 
 ### Example
 ```bash
-./MatrixDeterminant --single data/matrix.txt
-./MatrixDeterminant --multi data/matrix.txt
+./MatrixDeterminant --single ../data/matrix.txt
+./MatrixDeterminant --multi ../data/matrix.txt
 ```
 
 ### Matrix File Format
@@ -132,6 +138,7 @@ TEST_CASE("Determinant of a 2x2 matrix - Single Thread", "[single-thread]") {
 TEST_CASE("Edge case: Determinant of 1x1 matrix", "[single-thread][multi-thread]") {
     Matrix mat = {{42}};
     REQUIRE(single_thread_determinant(mat, 1) == Catch::Approx(42.0));
+    REQUIRE(multi_thread_determinant(mat, 1, 1) == Catch::Approx(42.0));
 }
 
 TEST_CASE("Large matrix test - Single and Multi-Thread", "[large-matrix]") {
@@ -166,17 +173,36 @@ To run all tests, navigate to the `build` directory and execute:
 ```
 To run specific test cases or groups, use Catch2's filtering options.
 
+## Evaluation Checklist
+### Code
+- **CMake Support**: The project includes `CMakeLists.txt` to build the project.
+- **Single-threaded Implementation**: The program supports single-threaded matrix determinant computation.
+- **Help Option**: The program implements a `--help` option.
+
+### Multi-threading
+- **Thread Usage**: The code uses multiple threads when multiple cores are available.
+- **Portable Code**: The code does not use non-portable libraries or extensions (e.g., OpenMP, POSIX-specific libraries).
+
+### Performance Measurement
+- **Release Mode Compilation**: Measurements are performed on binaries compiled in release mode.
+- **Multi-thread Performance**: The multi-threaded version shows improved performance for large matrices.
+
+### Report
+- **Commit Reference**: The report should include a specific commit hash or tag.
+- **Description of Measurements**: Describes the performance test results.
+- **Test Environment**: Documents the hardware and environment used for performance testing.
+
 ## How It Works
 1. **Input Handling**:
-    - Reads the matrix from a text file in the specified format.
+   - Reads the matrix from a text file in the specified format.
 2. **Gaussian Elimination**:
-    - Performs row swaps for numerical stability.
-    - Eliminates values below the pivot to create an upper triangular matrix.
+   - Performs row swaps for numerical stability.
+   - Eliminates values below the pivot to create an upper triangular matrix.
 3. **Determinant Calculation**:
-    - Computes the determinant as the product of diagonal elements.
-    - Adjusts the sign based on the number of row swaps.
+   - Computes the determinant as the product of diagonal elements.
+   - Adjusts the sign based on the number of row swaps.
 4. **Multi-threading**:
-    - Divides row elimination tasks among available threads.
+   - Divides row elimination tasks among available threads.
 
 ### Usage Tips:
 - For small matrices (e.g., 10x10), single-threaded performance may be faster due to threading overhead.
@@ -188,13 +214,6 @@ To run specific test cases or groups, use Catch2's filtering options.
 - Ensure sufficient memory when testing large matrices.
 - Multi-threaded performance may vary based on CPU cores and memory bandwidth.
 
-## Future Enhancements
-- Improve numerical stability using LU decomposition.
-- Add support for custom thread counts.
-- Add error handling for malformed input files.
-
 ## Conclusion
 This program demonstrates how threading can significantly reduce computation time for large matrix operations. The multi-threaded approach is beneficial for large matrices where parallel processing can optimize the workload.
-
-For any issues or contributions, please raise an issue or submit a pull request on the project repository.
 
