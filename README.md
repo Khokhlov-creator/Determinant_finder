@@ -61,11 +61,11 @@ This program computes the determinant of a matrix using both single-threaded and
    ```
 3. Run `cmake` to generate the build files:
    ```bash
-   cmake ..
+   cmake -G "Mingw makefiles" ..
    ```
 4. Compile the code:
    ```bash
-   make
+   mingw32-make
    ```
 
 ## Usage
@@ -82,7 +82,7 @@ After building, you will have the following executable:
 
 ### Example
 ```bash
-./MatrixDeterminant --single ../data/matrix.txt
+./MatrixDeterminant --single ../data/matrix_100x100.txt
 ./MatrixDeterminant --multi ../data/matrix.txt
 ```
 
@@ -181,10 +181,6 @@ To run specific test cases or groups, use Catch2's filtering options.
 ### Multi-threading
 - **Thread Usage**: The code uses multiple threads when multiple cores are available.
 - **Portable Code**: The code does not use non-portable libraries or extensions (e.g., OpenMP, POSIX-specific libraries).
-
-### Performance Measurement
-- **Release Mode Compilation**: Measurements are performed on binaries compiled in release mode.
-- **Multi-thread Performance**: The multi-threaded version shows improved performance for large matrices.
 
 ## How It Works
 1. **Input Handling**:
