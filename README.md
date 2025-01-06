@@ -14,7 +14,6 @@ This project implements the calculation of the determinant of an \(N \times N\) 
 - [Evaluation Checklist](#evaluation-checklist)
 - [How It Works](#how-it-works)
 - [Notes](#notes)
-- [Future Enhancements](#future-enhancements)
 - [Conclusion](#conclusion)
 
 ## Overview
@@ -186,11 +185,6 @@ To run specific test cases or groups, use Catch2's filtering options.
 ### Performance Measurement
 - **Release Mode Compilation**: Measurements are performed on binaries compiled in release mode.
 - **Multi-thread Performance**: The multi-threaded version shows improved performance for large matrices.
-
-### Report
-- **Commit Reference**: The report should include a specific commit hash or tag.
-- **Description of Measurements**: Describes the performance test results.
-- **Test Environment**: Documents the hardware and environment used for performance testing.
 
 ## How It Works
 1. **Input Handling**:
